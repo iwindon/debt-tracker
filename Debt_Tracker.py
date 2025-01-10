@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -10,25 +10,15 @@ def index():
         card_name = request.form['card_name']
         apr = request.form['apr']
         balance = request.form['balance']
+        card_type = request.form['card_type']
         cards.append({
             'card_name': card_name,
             'apr': apr,
-            'balance': balance
+            'balance': balance,
+            'card_type': card_type
         })
-    return render_template_string('''
-        <form method="POST">
-            Card Name: <input type="text" name="card_name"><br>
-            APR: <input type="text" name="apr"><br>
-            Balance: <input type="text" name="balance"><br>
-            <input type="submit" value="Add Card">
-        </form>
-        <h2>Card List:</h2>
-        <ul>
-            {% for card in cards %}
-            <li>{{ card.card_name }} - APR: {{ card.apr }} - Balance: {{ card.balance }}</li>
-            {% endfor %}
-        </ul>
-    ''', cards=cards)
+    return render_template('index.html', cards=cards)
 
 if __name__ == '__main__':
     app.run(debug=True)
+

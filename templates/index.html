@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+                input[type="submit"]:hover {
+                    background-color: #45a049;
+                }
+
+        .card-list {
+            margin-top: 20px;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            background: #e7f4e4;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+            .card img {
+                width: 40px;
+                margin-right: 20px;
+            }
+
+        .card-details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Debt Tracker</h1>
+        <form method="POST">
+            <label for="card_name">Card Name:</label>
+            <input type="text" name="card_name" id="card_name" required>
+
+            <label for="apr">APR:</label>
+            <input type="text" name="apr" id="apr" required>
+
+            <label for="balance">Balance:</label>
+            <input type="text" name="balance" id="balance" required>
+
+            <label for="card_type">Card Type:</label>
+            <select name="card_type" id="card_type" required>
+                <option value="Visa">Visa</option>
+                <option value="MasterCard">MasterCard</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <input type="submit" value="Add Card">
+        </form>
+
+        <div class="card-list">
+            <h2>Card List:</h2>
+            {% for card in cards %}
+            <div class="card">
+                {% if card.card_type == 'Visa' %}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa">
+                {% elif card.card_type == 'MasterCard' %}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png" alt="MasterCard">
+                {% else %}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Circle-icons-creditcard.svg/1024px-Circle-icons-creditcard.svg.png" alt="Credit Card">
+                {% endif %}
+                <div class="card-details">
+                    <strong>{{ card.card_name }}</strong> - APR: {{ card.apr }} - Balance: {{ card.balance }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
