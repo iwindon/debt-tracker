@@ -2,6 +2,7 @@
 
 Debt Tracker is a simple Flask web application that allows users to track their credit card debts by entering card details such as card name, APR, and balance.
 This program is currently being developed as a personal project to practice web development with Flask, Python, and deploying to Azure Web Applications.
+
 ## Features
 
 - Add credit card details including card name, APR, and balance.
