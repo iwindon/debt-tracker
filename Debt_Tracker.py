@@ -13,8 +13,8 @@ def index():
     if request.method == 'POST':
         try:
             card_name = request.form['card_name']
-            apr = request.form['apr']
-            balance = request.form['balance']
+            apr = float(request.form['apr'])
+            balance = float(request.form['balance'])
             card_type = request.form['card_type']
             cards.append({
                 'card_name': card_name,
@@ -26,10 +26,20 @@ def index():
         except Exception as e:
             logging.error(f"Error processing form data: {e}")
             return "Bad Request", 400
-    return render_template('index.html', cards=cards)
+    formatted_cards = [
+        {
+            'card_name': card['card_name'],
+            'apr': f"{card['apr']:.2f}%",
+            'balance': f"${card['balance']:,.2f}",
+            'card_type': card['card_type']
+        }
+        for card in cards
+    ]
+    return render_template('index.html', cards=formatted_cards)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
